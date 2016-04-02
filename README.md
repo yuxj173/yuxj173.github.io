@@ -1,4 +1,5 @@
 # yuxj173.github.io
 YuxJ173's blog.
 
-First test
+First test.
+Second test.
