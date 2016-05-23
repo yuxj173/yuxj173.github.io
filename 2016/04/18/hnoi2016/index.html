@@ -1,0 +1,617 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="OI,HNOI," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="看了下题目，写一下我大致的思路吧。因为是大致的思路，所以并不会很详细。
+题目都不难，只是代码量稍大一些。码力不行的选手会有些吃亏。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HNOI2016">
+<meta property="og:url" content="https://yuxj173.github.io/2016/04/18/hnoi2016/index.html">
+<meta property="og:site_name" content="NasEIn">
+<meta property="og:description" content="看了下题目，写一下我大致的思路吧。因为是大致的思路，所以并不会很详细。
+题目都不难，只是代码量稍大一些。码力不行的选手会有些吃亏。">
+<meta property="og:updated_time" content="2016-04-30T07:26:20.008Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HNOI2016">
+<meta name="twitter:description" content="看了下题目，写一下我大致的思路吧。因为是大致的思路，所以并不会很详细。
+题目都不难，只是代码量稍大一些。码力不行的选手会有些吃亏。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> HNOI2016 | NasEIn </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">NasEIn</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                HNOI2016
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-04-18T00:25:38+08:00" content="2016-04-18">
+              2016-04-18
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/18/hnoi2016/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/04/18/hnoi2016/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>看了下题目，写一下我大致的思路吧。因为是大致的思路，所以并不会很详细。</p>
+<p>题目都不难，只是代码量稍大一些。码力不行的选手会有些吃亏。</p>
+<a id="more"></a>
+<h1 id="Day1"><a href="#Day1" class="headerlink" title="Day1"></a>Day1</h1><h2 id="最小公倍数-multiple"><a href="#最小公倍数-multiple" class="headerlink" title="最小公倍数 (multiple)"></a>最小公倍数 (multiple)</h2><p>问题可以换个形式，便于之后的描述：</p>
+<blockquote>
+<p>无向图中每条边的权值是一个二元组 $ (a, b) $。若干个询问，每次询问是否存在一条从 $ u \to v $ 的路径，使得 $ a $ 的最大值为 $ x $，$ b $ 的最大值为 $ y $。</p>
+</blockquote>
+<p>一次询问会给定 $ u, v, x, y $，路径不要求是简单路径。</p>
+<p>先不考虑 $ max a = x, max b = y $，只求 $ max a \leq x, max b \leq y $ 的话，是很简单的。离线，按 $ a $ 的顺序从小到大加边，维护 $ b $ 的最小生成树就可以。</p>
+<p>再考虑原问题。假设按 $ a $ 的顺序加边，则我们需要找到一条边，使得能从 $ u, v $ 中的某个点出发，在最小生成树上到达某个点 $ r $，这个点与一条权值 $ a = x $ 的边相邻，且该边的 $ b $ 以及从 $ u, v $ 到 $ r $ 的路径上的 &gt;$ b $ 值不超过 $ y $ 。<br>我们在 $ a $ 相同的时候按 $ b $ 的顺序依次加入边以及处理询问，每次加一条边时，在 LCT 中染黑与这条边相邻的点。每次将 $ u, v $ 提根，询问存在一个黑点到根的路径，使得路径上的最大值不超过 $ y $。这个不难完成。</p>
+<p>至于 $ max b = y $，按 $ b $ 的顺序再做一次就好了。</p>
+<p><del> 时间复杂度 O(nlogn) 。</del></p>
+<p>上述算法的复杂度应该是 $ O(n \log^2 n) $，因为要用堆维护子链。但依然有理论上的修正方法，即类似左儿子右兄弟，每次新建边时，两端的点也新建一份。这样每个点的子链个数降到 $ O(1) $，复杂度依然是 $ O(n \log n) $。</p>
+<h2 id="网络-network"><a href="#网络-network" class="headerlink" title="网络 (network)"></a>网络 (network)</h2><p>对于每个询问，二分答案。则问题转化成：</p>
+<blockquote>
+<p>设二分的答案为 $ K $，判断所有权值 $ &gt; K $ 的路径是否都经过服务器 x 。如果都经过，则答案 $ \leq K $；否则 $ &gt; K $ 。</p>
+</blockquote>
+<p>实际上只需要对所有权值 $ &gt;K $ 的路径求 <strong>路径交</strong>。<br>路径的交集依然是路径，用 RMQ 求 LCA 的话，在 $ O(1) $ 的时间内就可以求出两条路径的交集。<br>那用平衡树，或者离线离散化后用线段树，按权值的大小来维护二分结构就好。</p>
+<p>时间复杂度 $ O(n\log n) $。</p>
+<h2 id="树-tree"><a href="#树-tree" class="headerlink" title="树 (tree)"></a>树 (tree)</h2><p>将大树缩点。每个点看作一次复制的模板树部分。剩下的部分较简单，略。</p>
+<p>时间复杂度 $ O(n \log n) $。</p>
+<h1 id="Day2"><a href="#Day2" class="headerlink" title="Day2"></a>Day2</h1><h2 id="序列-sequence"><a href="#序列-sequence" class="headerlink" title="序列 (sequence)"></a>序列 (sequence)</h2><blockquote>
+<p>莫队应该是很好做的。事先要预处理一些数据。</p>
+<p>补充说明：对于分块后的每一组询问，固定左端点在块尾，右端点递增；对于每个询问，将左端点从块尾拓展到询问的左端点，回答询问后再还原到块尾，也就是类似树上分块莫队的做法。这样可以去掉删除元素的情况。同样的道理如果左端点固定在块头，右端点递减，则可以去掉添加元素的情况。</p>
+<p>例如本题，先用单调栈预处理。之后左端点固定，右端点递增, 找到右端点。和右端点固定，左端点拓展的情况都只需一次讨论即可 $ O(1) $ 实现。</p>
+<p>时间复杂度 $ O(n \sqrt{n}) $ 。</p>
+</blockquote>
+<p>再提供一个 $ O(n \log n) $ 的算法，利用可持久化能够拓展到在线。</p>
+<p>离线，按右端点排序处理询问。考虑每个元素 $ x $ 的贡献等于 $ (x - R)(L - x)a_x $，其中 $ R $ 为 $ x $ 之前的第一个不大于 $ x $ 的元素位置， $ L $ 为 $ x $ 之后的第一个大于 $ x $ 的元素位置。</p>
+<p>维护一个函数 $ f(l) $，即右端点为 $ r $ 时，$ f(l) $ 表示询问 $ (l, r) $ 的答案。</p>
+<p>每次加入最右端的元素 $ x $ 时，不难发现以这个新元素为末尾的贡献对 $ f(l) $ 是一个如下的分段函数 $ g(l) $ ：</p>
+<p>\begin{equation}<br>g(l) =<br>\begin{cases}<br>(x - R + 1)a_x, &amp; l \leq R \\<br>(x - l + 1)a_x, &amp; l &gt; R<br>\end{cases}.<br>\end{equation}</p>
+<p>这个 $ g(l) $ 实际上是一个标记。之后每次拓展右端点时，标记要复制一份，直到拓展到 $ L $ 。</p>
+<p>注意到标记对 $ f(l) $ 的贡献是独立的，每次查询相当于单点询问。那只需要在线段树的节点上对这些标记永久化即可。</p>
+<h2 id="矿区-mine"><a href="#矿区-mine" class="headerlink" title="矿区 (mine)"></a>矿区 (mine)</h2><p>自然，建出平面图的对偶图，这样就知道了每个矿区的面积和矿量。<br>然后，考虑从无穷域做 dfs 生成树并记录 dfs 序，这个 dfs 序包含所经过的点以及树边，且一条边在 dfs 序中恰好出现两次。那么对于一个开发计划，也就是一个多边形，沿着 dfs 树走，则 dfs 树不断地往返于多边形外部和内部。<br>可以看出，这个多边形在 dfs 生成树的 dfs 序上，转化成了若干个区间，信息就存在这些区间中。区间的端点即多边形边界所经过的那些树边在 dfs 序中的位置。<br>剩下的就不用我多说了。</p>
+<p>时间复杂度 $ O(E)-O(d) $ 。$ O(E) $ 是预处理平面图的复杂度。</p>
+<h2 id="大数-number"><a href="#大数-number" class="headerlink" title="大数 (number)"></a>大数 (number)</h2><p>如果 $ p $ 不是 $ 2 $ 或 $ 5 $ ，那么显然 $ \forall k &gt; 0, 10^k \not\equiv 0~ (mod ~p) $。</p>
+<p>这样对于每个子串，前缀模 $ p $ 的值相同的话 $ p $ 就能整除子串的值。</p>
+<p>预处理并离散化后，莫队就可以解决了。</p>
+<p>时间复杂度 $ O(n \sqrt{n}) $。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/OI/" rel="tag">#OI</a>
+          
+            <a href="/tags/HNOI/" rel="tag">#HNOI</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/24/pixiv-ranking-catcher/" rel="prev" title="A Naive Catcher by Python for Pixiv's Ranking Page">
+                A Naive Catcher by Python for Pixiv's Ranking Page <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="YuxJ173" />
+          <p class="site-author-name" itemprop="name">YuxJ173</p>
+          <p class="site-description motion-element" itemprop="description">Procrastination.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yuxj173" target="_blank">
+                  
+                    <i class="fa fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Day1"><span class="nav-number">1.</span> <span class="nav-text">Day1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#最小公倍数-multiple"><span class="nav-number">1.1.</span> <span class="nav-text">最小公倍数 (multiple)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络-network"><span class="nav-number">1.2.</span> <span class="nav-text">网络 (network)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#树-tree"><span class="nav-number">1.3.</span> <span class="nav-text">树 (tree)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day2"><span class="nav-number">2.</span> <span class="nav-text">Day2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#序列-sequence"><span class="nav-number">2.1.</span> <span class="nav-text">序列 (sequence)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矿区-mine"><span class="nav-number">2.2.</span> <span class="nav-text">矿区 (mine)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大数-number"><span class="nav-number">2.3.</span> <span class="nav-text">大数 (number)</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YuxJ173</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'YuxJ173';
+      var disqus_identifier = '2016/04/18/hnoi2016/';
+      var disqus_title = 'HNOI2016';
+      var disqus_url = 'https://yuxj173.github.io/2016/04/18/hnoi2016/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+  
+  
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+
+  
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
