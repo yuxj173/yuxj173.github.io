@@ -11,11 +11,12 @@ import re
 import time
 import sys
 import json
+import shutil
 
 domain = 'http://www.pixiv.net/'
 headers = {
   'Referer': domain,
-  'Cookie' : # your pixiv cookie 
+  'Cookie' : # your cookie for pixiv here
 }
 
 try:
@@ -59,6 +60,29 @@ class pixiv_daily_manager:
   date = time.strftime('%Y-%m-%d', time.localtime(time.time()))
   count = [0, 0, 0]
   current_number = 0
+  been = False
+  
+  def erase_log(self, id, item):
+    file_date = re.search(re.compile('[0-9]{4}-[0-9]{2}-[0-9]{2}'), item).group(0)
+    file = open(self.log + '/' + file_date + '.txt', 'r')
+    x = json.loads(file.read())
+    file.close()
+    try:
+      os.remove(item)
+    except:
+      nothing = 1
+    if (id.find('-')):
+      try:
+        os.rmdir(item[:item.rfind('/')])
+      except:
+        nothing = 1
+    try:
+      del x['list'][id]
+    except:
+      nothing = 1
+    file = open(self.log + '/' + file_date + '.txt', 'w')
+    file.write(json.dumps(x, sort_keys = True, indent = 2, separators = (',',':')))
+    file.close()
   
   def load_log(self):
     list = os.listdir(self.log)
@@ -68,8 +92,15 @@ class pixiv_daily_manager:
           continue
       file = open(self.log + '/' + i, 'r')
       x = json.loads(file.read())
-      self.pic_list.update(x['list'])
       file.close()
+      erase = {}
+      for id, path in x['list'].items():
+        if (os.path.exists(path) == False or os.path.getsize(path) == 0):
+          self.erase_log(id, path)
+          erase[id] = path
+      for id, path in erase.items():
+        del x['list'][id]
+      self.pic_list.update(x['list'])
   
   def print_log(self):
     log_file = self.log + '/' + self.date + '.txt'
@@ -118,17 +149,18 @@ class pixiv_daily_manager:
       item = self.pic_list[unique_id]
     except:
       item = -1
-    if (item != -1 and os.path.exists(item) and os.path.getsize(item) > 0):
-      print()
-      print(unique_id + '.' + type, 'has been download to %s'%item)
-      return -1
     if (os.path.exists(filename) and os.path.exists(filename) > 0):
       print()
       print(unique_id + '.' + type, 'has existed.')
       self.pic_list[unique_id] = filename
       self.today_list[unique_id] = filename
       self.print_log()
-      return -1
+      return 1
+    if (item != -1 and os.path.exists(item) and os.path.getsize(item) > 0):
+      print()
+      print(unique_id + '.' + type, 'has been download to %s'%item)
+      self.been = True
+      return 0
     self.count[0] = self.count[0] + 1
     file = open(filename, "wb")
     try:
@@ -139,19 +171,54 @@ class pixiv_daily_manager:
       self.count[1] = self.count[1] + 1
       self.print_log()
       print('success.')
-      return 0
+      return 1
     except urllib.error.URLError as e:
       self.count[2] = self.count[2] + 1
       print('fail.')
-      return -1
+      return -999
   
   def download_multiple(self, id, num):
     print('there is a set of images, %d in total.'%num)
-    create_folder(self.current_dir + '/%s'%id)
+    if (num > 50):
+      printf('Too many. Ignored.')
+      return
+    
+    main_dir = self.current_dir + '/%s'%id
+    create_folder(main_dir)
+    cnt = 0
+    self.been = False
     for i in range(0, num):
       page = soup(get('http://www.pixiv.net/member_illust.php?mode=manga_big&illust_id=%s&page=%d'%(id,i)))
       item_url = page.find('img')['src']
-      self.download_single(item_url, id, True, i)
+      cnt = cnt + self.download_single(item_url, id, True, i)
+    if (cnt == 0):
+      os.rmdir(main_dir)
+    elif (cnt != num and self.been == True):
+      print('Warning!!! This set of images was not completely download at once.')
+      print('Now try to find the rest locally-saved images...')
+      for i in range(0, num):
+        unique_id = id + '-' + str(i)
+        sid = str(self.current_number) + '-' + str(i)
+        try:
+          item = self.pic_list[unique_id]
+        except:
+          item = -1
+        try:
+          self_item = self.today_list[unique_id]
+        except:
+          self_item = -1
+        if (item != -1 and os.path.exists(item) and os.path.getsize(item) > 0
+            and self_item == -1):
+          cur_item = main_dir + '/' + str(i) + item[item.rfind('.'):]
+          print('processing %s, id=%s : move %s to %s...'%(sid, id, item, cur_item)
+                , end = '', flush = True)
+          cur_item = main_dir + '/' + str(i) + item[item.rfind('.'):]
+          shutil.copyfile(item, cur_item)
+          self.erase_log(unique_id, item)
+          self.today_list[unique_id] = cur_item
+          self.pic_list[unique_id] = cur_item
+          sid = id + '-' + str(self.current_number)
+          print('success.')
     
   def single(self, url):
     id = re.search(re.compile('illust_id=([0-9]*)'), url).group(1)
