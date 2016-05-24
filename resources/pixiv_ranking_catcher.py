@@ -16,7 +16,7 @@ import shutil
 domain = 'http://www.pixiv.net/'
 headers = {
   'Referer': domain,
-  'Cookie' : 'p_ab_id=5; __utmt=1; _gat_UA-77039608-4=1; visit_ever=yes; a_type=0; module_orders_mypage=%5B%7B%22name%22%3A%22everyone_new_illusts%22%2C%22visible%22%3Atrue%7D%2C%7B%22name%22%3A%22spotlight%22%2C%22visible%22%3Atrue%7D%2C%7B%22name%22%3A%22featured_tags%22%2C%22visible%22%3Atrue%7D%2C%7B%22name%22%3A%22contests%22%2C%22visible%22%3Atrue%7D%2C%7B%22name%22%3A%22following_new_illusts%22%2C%22visible%22%3Atrue%7D%2C%7B%22name%22%3A%22mypixiv_new_illusts%22%2C%22visible%22%3Atrue%7D%2C%7B%22name%22%3A%22booth_follow_items%22%2C%22visible%22%3Atrue%7D%5D; hide_premium_promotion_modal_gw=1462606183; login_ever=yes; ki_t=1462606287044%3B1462606287044%3B1462606287044%3B1%3B1; ki_r=; __utma=235335808.1801273321.1462606253.1462606253.1462606253.1; __utmb=235335808.7.9.1462606285323; __utmc=235335808; __utmz=235335808.1462606253.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); __utmv=235335808.|2=login%20ever=yes=1^3=plan=normal=1^5=gender=male=1^6=user_id=14860075=1; _ga=GA1.2.1801273321.1462606253; PHPSESSID=14860075_f92ddc5c1d2c7d12d3d6635e8f2bda7d; device_token=d018e1a88edbc262fcf81c6825998f6a'
+  'Cookie' : # your cookie for pixiv here
 }
 
 try:
