@@ -20,14 +20,26 @@ headers = {
 }
 
 try:
-  daily_num = sys.argv[2]
+  old_mode = sys.argv[1]
+except:
+  old_mode = False
+
+try:
+  daily_num = int(sys.argv[2])
 except:
   daily_num = 50
 
 try: 
-  universal_num = sys.argv[1]
+  universal_num = int(sys.argv[3])
 except:
   universal_num = 50
+  
+if (universal_num > 100 or universal_num < 0):
+  print('%d is not supported.')
+  sys.exit()
+if (daily_num > 100 or daily_num < 0):
+  print('%d is not supported.')
+  sys.exit()
 
 def get(url):
   try:
@@ -55,12 +67,13 @@ class pixiv_daily_manager:
   universal = ''
   daily = ''
   directory = './'
-  time_difference = 3600 * 24 * 8
+  time_difference = 3600 * 24 * 30
   this_time = time.time()
   date = time.strftime('%Y-%m-%d', time.localtime(time.time()))
   count = [0, 0, 0]
   current_number = 0
   been = False
+  old_mode = False
   
   def erase_log(self, id, item):
     file_date = re.search(re.compile('[0-9]{4}-[0-9]{2}-[0-9]{2}'), item).group(0)
@@ -69,17 +82,14 @@ class pixiv_daily_manager:
     file.close()
     try:
       os.remove(item)
-    except:
-      nothing = 1
+    except: pass
     if (id.find('-')):
       try:
         os.rmdir(item[:item.rfind('/')])
-      except:
-        nothing = 1
+      except: pass
     try:
       del x['list'][id]
-    except:
-      nothing = 1
+    except: pass
     file = open(self.log + '/' + file_date + '.txt', 'w')
     file.write(json.dumps(x, sort_keys = True, indent = 2, separators = (',',':')))
     file.close()
@@ -119,8 +129,19 @@ class pixiv_daily_manager:
     file.write(json.dumps(json_pack, sort_keys = True, indent = 2, separators=(',',':')))
     file.close()
     
-  def init(self):
-    print('create the needed environment...')
+  def init(self, old_mode = False):
+    if (old_mode != False):
+      t = re.search(re.compile('([0-9]{4})([0-1][0-9])([0-3][0-9])'), old_mode)
+      try:
+        year = t.group(1)
+        month = t.group(2)
+        day = t.group(3)
+      except:
+        print('date format is not correct. please use the form like 20140307')
+        return -1
+      self.date = '%s-%s-%s'%(year, month, day)
+      self.this_time = time.mktime(time.strptime(self.date, '%Y-%m-%d'))
+    
     self.dir = self.directory + self.date
     self.universal = self.dir + '/universal'
     self.daily = self.dir + '/daily'
@@ -132,6 +153,9 @@ class pixiv_daily_manager:
     self.load_log()
     print('end creating the needed environment.')
     print()
+    if (old_mode != False):
+      print('NOTICE: You are using old-download-mode. The universal ranking won\'t be analysed.')
+      time.sleep(3)
     
   def download_single(self, url, id, multiple_mode = False, number = 0):
     sid = str(self.current_number)
@@ -169,8 +193,8 @@ class pixiv_daily_manager:
       self.pic_list[unique_id] = filename
       self.today_list[unique_id] = filename
       self.count[1] = self.count[1] + 1
-      self.print_log()
       print('success.')
+      self.print_log()
       return 1
     except urllib.error.URLError as e:
       self.count[2] = self.count[2] + 1
@@ -277,7 +301,35 @@ class pixiv_daily_manager:
     self.feedback()
 
 catcher = pixiv_daily_manager()
-catcher.init()
-catcher.daily_analysis('ranking.php?mode=daily&content=illust', daily_num)
-catcher.universal_analysis('ranking_area.php?type=detail&no=6', universal_num)
-catcher.print_log()
+if (old_mode == False or old_mode == 'tdy'):
+  catcher.init()
+  catcher.daily_analysis('ranking.php?mode=daily&content=illust', daily_num)
+  catcher.universal_analysis('ranking_area.php?type=detail&no=6', universal_num)
+elif (old_mode.find('-') >= 0):
+  t = re.search(re.compile('([0-9]{4})([0-1][0-9])([0-3][0-9])-([0-9]{4})([0-1][0-9])([0-3][0-9])'), old_mode)
+  try:
+    y1 = t.group(1)
+    m1 = t.group(2)
+    d1 = t.group(3)
+    y2 = t.group(4)
+    m2 = t.group(5)
+    d2 = t.group(6)
+  except: pass
+  start = time.mktime(time.strptime('%s-%s-%s'%(y1,m1,d1), '%Y-%m-%d'))
+  end = time.mktime(time.strptime('%s-%s-%s'%(y2,m2,d2), '%Y-%m-%d'))
+  if (end - start > 3600 * 24 * 16):
+    print('The supported time period is utmost 15-16 days.')
+    sys.exit()
+  while (start < end + 10):
+    date = time.strftime('%Y%m%d', time.localtime(start))
+    print("the current date: %s"%date)
+    catcher.init(date)
+    catcher.daily_analysis('ranking.php?mode=daily&date=%s'%date, daily_num)
+    catcher.print_log()
+    start = start + 3600 * 24
+else:
+  catcher.init(old_mode)
+  catcher.print_log()
+  
+  catcher.daily_analysis('ranking.php?mode=daily&date=%s'%old_mode, daily_num)
+  catcher.print_log()
