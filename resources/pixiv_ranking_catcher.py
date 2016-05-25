@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 #coding=utf-8
 from bs4 import BeautifulSoup
 from html.parser import HTMLParser
@@ -29,11 +28,11 @@ try:
 except:
   daily_num = 50
 
-try: 
+try:
   universal_num = int(sys.argv[3])
 except:
   universal_num = 50
-  
+
 if (universal_num > 100 or universal_num < 0):
   print('%d is not supported.')
   sys.exit()
@@ -49,10 +48,10 @@ def get(url):
   except urllib.error.URLError as e:
     print(e.reason)
     return -1
-  
+
 def soup(page):
   return BeautifulSoup(page.read(), 'html.parser')
-  
+
 def create_folder(fold_path):
   print('try creating %s...'%fold_path, end = '', flush = True)
   if not os.path.exists(fold_path):
@@ -74,7 +73,7 @@ class pixiv_daily_manager:
   current_number = 0
   been = False
   old_mode = False
-  
+
   def erase_log(self, id, item):
     file_date = re.search(re.compile('[0-9]{4}-[0-9]{2}-[0-9]{2}'), item).group(0)
     file = open(self.log + '/' + file_date + '.txt', 'r')
@@ -93,11 +92,11 @@ class pixiv_daily_manager:
     file = open(self.log + '/' + file_date + '.txt', 'w')
     file.write(json.dumps(x, sort_keys = True, indent = 2, separators = (',',':')))
     file.close()
-  
+
   def load_log(self):
     list = os.listdir(self.log)
     for i in list:
-      if (abs(time.mktime(time.strptime(i[:i.find('.')], '%Y-%m-%d')) - 
+      if (abs(time.mktime(time.strptime(i[:i.find('.')], '%Y-%m-%d')) -
           self.this_time) > self.time_difference):
           continue
       file = open(self.log + '/' + i, 'r')
@@ -111,7 +110,7 @@ class pixiv_daily_manager:
       for id, path in erase.items():
         del x['list'][id]
       self.pic_list.update(x['list'])
-  
+
   def print_log(self):
     log_file = self.log + '/' + self.date + '.txt'
     if (os.path.exists(log_file)):
@@ -120,7 +119,7 @@ class pixiv_daily_manager:
       x['list'].update(self.today_list)
       self.today_list = x['list']
       file.close()
-    
+
     json_pack = {
       'finished-time' : time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())),
       'list' : self.today_list
@@ -128,7 +127,7 @@ class pixiv_daily_manager:
     file = open(log_file, 'w')
     file.write(json.dumps(json_pack, sort_keys = True, indent = 2, separators=(',',':')))
     file.close()
-    
+
   def init(self, old_mode = False):
     if (old_mode != False):
       t = re.search(re.compile('([0-9]{4})([0-1][0-9])([0-3][0-9])'), old_mode)
@@ -141,7 +140,7 @@ class pixiv_daily_manager:
         return -1
       self.date = '%s-%s-%s'%(year, month, day)
       self.this_time = time.mktime(time.strptime(self.date, '%Y-%m-%d'))
-    
+
     self.dir = self.directory + self.date
     self.universal = self.dir + '/universal'
     self.daily = self.dir + '/daily'
@@ -156,7 +155,7 @@ class pixiv_daily_manager:
     if (old_mode != False):
       print('NOTICE: You are using old-download-mode. The universal ranking won\'t be analysed.')
       time.sleep(3)
-    
+
   def download_single(self, url, id, multiple_mode = False, number = 0):
     sid = str(self.current_number)
     if (multiple_mode == True):
@@ -200,13 +199,13 @@ class pixiv_daily_manager:
       self.count[2] = self.count[2] + 1
       print('fail.')
       return -999
-  
+
   def download_multiple(self, id, num):
     print('there is a set of images, %d in total.'%num)
     if (num > 50):
       printf('Too many. Ignored.')
       return
-    
+
     main_dir = self.current_dir + '/%s'%id
     create_folder(main_dir)
     cnt = 0
@@ -243,7 +242,7 @@ class pixiv_daily_manager:
           self.pic_list[unique_id] = cur_item
           sid = id + '-' + str(self.current_number)
           print('success.')
-    
+
   def single(self, url):
     id = re.search(re.compile('illust_id=([0-9]*)'), url).group(1)
     page = soup(get(url))
@@ -253,14 +252,14 @@ class pixiv_daily_manager:
       return self.download_multiple(id, int(a))
     except:
       return self.download_single(page.find('img', class_ = 'original-image')['data-src'], id)
-    
+
   def feedback(self):
     print('done! %d pic in total.'%self.count[0])
     print('%d success.'%self.count[1])
     print('%d fail.'%self.count[2])
     print()
     print()
-  
+
   def universal_analysis(self, url, num):
     print('catch the universal ranking. preparing...')
     self.count = [0, 0, 0]
@@ -280,7 +279,7 @@ class pixiv_daily_manager:
       except:
         a = -1
     self.feedback()
-  
+
   def daily_analysis(self, url, num):
     print('catch the daily ranking. preparing...')
     self.count = [0, 0, 0]
@@ -330,6 +329,6 @@ elif (old_mode.find('-') >= 0):
 else:
   catcher.init(old_mode)
   catcher.print_log()
-  
+
   catcher.daily_analysis('ranking.php?mode=daily&date=%s'%old_mode, daily_num)
   catcher.print_log()
